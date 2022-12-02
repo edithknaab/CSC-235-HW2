@@ -1,0 +1,238 @@
+<!--	Name: Edith Kwadan-naab	
+Course:	235.02
+HomeWork:	#2
+Git-Hub:	https://github.com/yourName/yourHomeWork
+-->		
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<title> Yahtzee </title>
+<style type = "text/css">
+<!--
+
+h1 {text-align:center;}
+div.a{text-align:center; margin-bottom:4em;}
+table.a{margin-left:auto; margin-right:auto;}
+td.a{text-align:right;
+	font-family:Helvetica;
+	font-weight:bold;}
+
+td.b{background-color:#AEAFFF;
+	width:3em;
+	height:3em;
+	border:3px groove #AEAFB4;
+        font-family:Helvetica;
+        font-weight: bold;
+	}
+
+td.c {width:10em;
+      text-align:center;}
+button.a {background-color: #6000C9;
+          font-family: "Times New Roman";
+          font-size: 18pt;
+          font-weight: bold;
+          color: #dedede;
+}
+
+-->
+</style>
+</head>
+
+<body>
+<h1>Yahtzee</h1>
+<script language = "JavaScript">
+<!--
+
+var v = new Array(0,0,0,0,0);
+var h = new Array(false,false,false,false,false);
+var f = new Array (0,0,0,0,0,0,0);
+var total = 0;
+
+function clr(X)
+{ 
+	var t = document.getElementById("s"+ X);
+	t.innerHTML = ""; 
+}
+function kclr(X)
+{ 
+	var t = document.getElementById("k"+ X);
+	t.innerHTML = ""; 
+}
+
+
+function roll()
+{
+for (var i=1;i<=6;i++) {f[i]=0;}
+
+total=0;
+for (var i=0;i<5;i++){
+    if(!h[i]){
+    var t  = document.getElementById("d"+i);
+    v[i] = Math.floor(6*Math.random())+1;
+    t.src = "pix/dice" + v[i] + ".gif";
+   }
+ total += v[i];
+ f[v[i]]++;
+}
+
+}
+function scr(X)
+{
+	var t = document.getElementById("s"+ X);
+	t.innerHTML = X*f[X];
+}
+
+function knd(X)
+{
+    var t = document.getElementById("k"+ X);
+    var k=1;
+    while((k<=6) && (f[k] < X)) {k++;}
+    if(k<=6) t.innerHTML=total;
+    else t.innerHTML=0;
+}
+
+
+
+function hold(X)
+{
+   var t = document.getElementById("d"+X);
+   h[X] = !h[X];
+
+   if (h[X]){ t.src = "pix/diceX" + v[X]+ ".gif";}
+    else{     t.src = "pix/dice" + v[X]+ ".gif";}
+   
+
+}
+
+
+
+
+function resetGame()
+{
+v = new Array(0,0,0,0,0);
+h = new Array(false,false,false,false,false);	
+f = new Array (0,0,0,0,0,0,0);
+
+for (let i=1;i<=6;i++){
+clr(i)
+}
+for (let i=0;i<5;i++){
+var t =document.getElementById("d"+ i )
+t.src = "pix/dice0.gif"
+}
+}
+
+
+
+
+//-->
+</script>
+
+<div class="a">
+<img id = "d0" onClick = "hold(0)" src="pix/dice0.gif">
+<img id = "d1" onClick = "hold(1)" src="pix/dice0.gif">
+<img id = "d2" onClick = "hold(2)" src="pix/dice0.gif">
+<img id = "d3" onClick = "hold(3)" src="pix/dice0.gif">
+<img id = "d4" onClick = "hold(4)" src="pix/dice0.gif">
+</div>
+
+
+<table class ="a">
+<tr> <td class="a">1's</td> 
+<td id ="s1" class="b"
+onMouseOver ="scr(1);"
+onMouseOut ="clr(1);"
+onClick="cs(1);"
+> </td> 
+         
+	<td class = "c" rowspan = "5"> <button class="a" onClick = "roll()" > Roll </button>
+ </td> </tr>
+
+<tr><td class ="a"> 2's </td>
+
+<td id ="s2" class="b"
+onMouseOver = "scr(2);"
+onMouseOut = "clr(2);"
+onClick="cs(2);"
+> </td> </tr>
+
+
+<tr> <td class="a">3's</td>  
+
+<td id= "s3" class="b"
+onMouseOver = "scr(3);"
+onMouseOut = "clr(3);"
+onClick="cs(3);"
+> </td> </tr>
+
+
+<tr> <td class="a">4's</td>
+<td id = "s4" class="b"
+onMouseOver = "scr(4);"
+onMouseOut = "clr(4);"
+onClick="cs(4);"
+> </td> </tr>
+
+
+
+<tr> <td class="a">5's</td>
+<td id = "s5" class="b"
+onMouseOver = "scr(5);"
+onMouseOut = "clr(5);"
+onClick="cs(5);"
+>  </td> </tr>
+
+
+<tr> <td class="a">6's</td>
+<td id = "s6" class="b"
+onMouseOver = "scr(6);"
+onMouseOut = "clr(6);"
+onClick="cs(6);"
+>  </td>
+
+
+
+<td class = "c" rowspan = "5"> <button class = "b" onClick = "resetGame()" >New Game</button> </td></tr>
+
+<tr> <td class="a">3 of a kind</td>
+<td id = "k3" class="b"
+onMouseOver = "knd(3);"
+onMouseOut = "kclr(3);"
+onClick="kcs(3);"
+
+>  </td> </tr>
+
+
+<tr> <td class="a">4 of a kind</td>
+<td id = "k4" class="b" 
+onMouseOver = "knd(4);"
+onMouseOut = "kclr(4);" 
+onClick="kcs(4);"
+></td> </tr>
+
+<tr> <td class="a">Yahtzee</td>
+<td id = "k5" class="b"
+onMouseOver = "knd(5);"
+onMouseOut = "kclr(5);"
+onClick="kcs(5);"
+>  </td> </tr>
+
+
+<tr> <td class="a">Total</td>
+<td id = "k5" class="b"
+onMouseOver = ""
+onMouseOut="";
+onClick = ""
+>  </td> </tr>
+</table>
+
+
+
+</body>
+</html>
